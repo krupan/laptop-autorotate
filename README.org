@@ -1,0 +1,13 @@
+* autorotate
+
+A script that uses =iio-sensor-proxy= (the =monitor-sensor= command) to detect screen orientation changes and rotate the screen and any pointers (touchpad, touchscreen, pen) accordingly.
+
+** Use
+
+Put the script somewhere, make it executable, and start it when your desktop and/or window manager starts.  For example, you could put this in your =~/.config/i3/config=:
+
+#+BEGIN_SRC conf
+  exec --no-startup-id /path/to/autorotate
+#+END_SRC
+
+*NOTE*: if you are not using an HP Spectre 13-ap0059dx like me, you will probably need to edit the script and change the device names.  Run =xinput list= to see the names of your devices.
