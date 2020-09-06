@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# inspired by
+# https://gist.github.com/Migacz85/3f544933ce5add438555ba7cd33f0413
+#
+# uses devices for my HP Spectre 13-ap0059dx.  Check `xinput list` for
+# your laptop's devices.
+
+PROP="Coordinate Transformation Matrix"
+
+transform () {
+    for device in "SYNA327E:00 06CB:CD4F Touchpad" \
+                      "ELAN2514:00 04F3:2812 Pen (0)" \
+                      "pointer:ELAN2514:00 04F3:2812"; do
+    xinput set-prop "$device" --type=float "$PROP" "$@"
+    done
+}
+
+monitor-sensor | while read -r line
+do
+
+if [ "$line" = "Accelerometer orientation changed: left-up" ]; then
+    xrandr -o left
+    transform 0 -1 1 1 0 0 0 0 1
+fi
+if [ "$line" = "Accelerometer orientation changed: right-up" ]; then
+    xrandr -o right
+    transform 0 1 0 -1 0 1 0 0 1
+fi
+if [ "$line" = "Accelerometer orientation changed: bottom-up" ]; then
+    xrandr -o inverted
+    transform -1 0 1 0 -1 1 0 0 1
+fi
+if [ "$line" = "Accelerometer orientation changed: normal" ]; then
+    xrandr -o normal
+    transform 1 0 0 0 1 0 0 0 1
+fi
+done
