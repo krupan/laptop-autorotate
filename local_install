@@ -2,10 +2,8 @@
 set -e
 set -x
 REPO_DIR=$(pwd)
-cd ~
-if [ ! -d "bin" ]; then
-    mkdir bin
+if [ ! -d "$HOME/bin" ]; then
+    mkdir "$HOME/bin"
 fi
-cd bin
-ln -fs autorotate
-
+cd "$HOME/bin"
+ln -fs "$REPO_DIR"/autorotate autorotate
