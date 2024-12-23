@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+set -x
+REPO_DIR=$(pwd)
+cd ~
+if [ ! -d "bin" ]; then
+    mkdir bin
+fi
+cd bin
+ln -fs autorotate
+
